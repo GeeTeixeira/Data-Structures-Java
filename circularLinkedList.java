@@ -15,34 +15,31 @@ public class circularLinkedList<T extends Comparable<T>> {
 		tmpFront.next = new circularLinkedList(newData);
 		tmpFront.next.next = nextFront;
 	}
-	public boolean delete(T target, circularLinkedList front) {
-		circularLinkedList tmpFront = front;
-		circularLinkedList prevFront = tmpFront;
-		circularLinkedList nextFront = tmpFront.next;
-		if(front == null) throw new NoSuchElementException("Empty list.");
-		if(front.data.equals(target)) {
-			while(!prevFront.next.equals(front)) {
-				prevFront = prevFront.next;
-			}
-			prevFront.next = prevFront.next.next;
-			return true;
+	public circularLinkedList delete(T target, circularLinkedList front) {
+		circularLinkedList tmpPrev = front;
+		circularLinkedList frontMark = front;
+		
+		if(tmpPrev == null) throw new NoSuchElementException("Empty list.");
+		circularLinkedList tmpFront = front.next;
+		while(tmpFront.data != target && tmpFront != frontMark) {
+			tmpPrev = tmpFront;
+			tmpFront = tmpFront.next;
 		}
-		while(!nextFront.equals(tmpFront) && !nextFront.data.equals(tmpFront.data)) {
-			if(nextFront.data.equals(target)) {
-				prevFront.next = nextFront.next;
-				return true;
-			}
-			nextFront = nextFront.next;
+		if(tmpFront.data == target) {
+			tmpPrev.next = tmpFront.next;
+			return tmpPrev;
 		}
-		return false;
+		return front;
 	}
-	public void printList(circularLinkedList front) {
+	public static void printList(circularLinkedList front) {
 		circularLinkedList tmpFront = front;
 		circularLinkedList printer = front;
+		if(tmpFront == null) throw new NoSuchElementException("Empty list.");
 		do {
-			System.out.println(printer.data);
+			System.out.println("Printer: "+printer.data);
+			//System.out.println("Front: "+front.data+"\n");
 			printer = printer.next;
-		}while(!printer.equals(tmpFront));
+		}while(!printer.data.equals(front.data));
 	}
 	public static void main(String[] args) {
 		circularLinkedList front = new circularLinkedList(0);
@@ -52,8 +49,8 @@ public class circularLinkedList<T extends Comparable<T>> {
 		front.insert(5, front);
 		front.printList(front);
 		System.out.println("----");
-		front.delete(0, front);
-		//front.printList(front);
+		front = front.delete(1, front);
+		front.printList(front);
 
 	}
 }
