@@ -41,4 +41,16 @@ public class circularLinkedList<T extends Comparable<T>> {
 			printer = printer.next;
 		}while(!printer.data.equals(front.data));
 	}
+	/*public static void main(String[] args) {
+		circularLinkedList front = new circularLinkedList(0);
+
+		front.insert(1, front);
+		front.insert(2, front);
+		front.insert(5, front);
+		front.printList(front);
+		System.out.println("----");
+		front = front.delete(0, front);
+		front.printList(front);
+
+	}*/
 }
