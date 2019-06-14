@@ -47,24 +47,17 @@ public class doublyLinkedList <T extends Comparable<T>> {
 	public boolean delete(T target) { //not working
 		if(head == null) throw new NoSuchElementException("Empty list.");
 		node prev = head;
-		node targetNode = head;
 		if(head.data.equals(target)) {
-			if(head.next != null) {
-				head = head.next;
-				head.prev = null;
-			}
-			else {
-				head = null;
-			}
+			head = head.next;
+			head.prev = null;
 			return true;
 		}
-		while(targetNode != null && targetNode.data.equals(target)) {
-			prev = targetNode;
-			targetNode = targetNode.next;
+		while(prev != null && !prev.data.equals(target)) {
+			prev = prev.next;
 		}
-		if(targetNode.data.equals(target)) {
-			System.out.println(true);
-			prev.next = targetNode.next;
+		if(prev.data.equals(target)) {
+			prev = prev.prev;
+			prev.next = prev.next.next;
 			prev.next.prev = prev;
 			return true;
 		}
@@ -75,8 +68,7 @@ public class doublyLinkedList <T extends Comparable<T>> {
 		while(pointer != null) {
 			System.out.println(pointer);
 			System.out.println("Current previous: "+pointer.prev);
-			System.out.println("Current next: "+pointer.next);
-			System.out.println("-------\n");
+			System.out.println("Current next: "+pointer.next+"\n");
 			pointer = pointer.next;
 		}
 	}
