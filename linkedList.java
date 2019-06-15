@@ -10,6 +10,13 @@ public class linkedList<T extends Comparable<T>>{
 		this.data = data;
 		next = null;
 	}
+	//Getters
+	public T getData() {
+		return data;
+	}
+	public linkedList getNext() {
+		return next;
+	}
 	/**
 	 * Insert new element at the end of list. Throws exception if list is null.
 	 * @param newData
